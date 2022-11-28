@@ -467,7 +467,7 @@ export default class Bubble<
               [styles.content.username, this.props.usernameStyle] as TextStyle
             }
           >
-            ~ {currentMessage.user.name}
+            {currentMessage.user.name}
           </Text>
         </View>
       )
@@ -516,6 +516,7 @@ export default class Bubble<
           containerStyle && containerStyle[position],
         ]}
       >
+        {this.renderUsername()}
         <View
           style={[
             styles[position].wrapper,
@@ -538,7 +539,7 @@ export default class Bubble<
                   bottomContainerStyle && bottomContainerStyle[position],
                 ]}
               >
-                {this.renderUsername()}
+                
                 {this.renderTime()}
                 {this.renderTicks()}
               </View>

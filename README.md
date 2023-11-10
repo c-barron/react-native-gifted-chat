@@ -16,12 +16,9 @@
   <a href="https://www.npmjs.com/package/react-native-gifted-chat">
   <img alt="npm downloads" src="https://img.shields.io/npm/dm/react-native-gifted-chat.svg"/></a>
   <a href="https://www.npmjs.com/package/react-native-gifted-chat"><img alt="npm version" src="https://badge.fury.io/js/react-native-gifted-chat.svg"/></a>
-   <a href="https://reactnative.gallery/FaridSafi/gifted-chat"><img src="https://img.shields.io/badge/reactnative.gallery-%F0%9F%8E%AC-green.svg"/></a>
-
 </p>
 <p align="center">
   <a href="https://circleci.com/gh/FaridSafi/react-native-gifted-chat"><img src="https://circleci.com/gh/FaridSafi/react-native-gifted-chat.svg?style=shield" alt="build"></a>
-  <a href="https://travis-ci.org/FaridSafi/react-native-gifted-chat"><img src="https://api.travis-ci.org/FaridSafi/react-native-gifted-chat.svg" alt="deployed"></a>
   <a title='License' href="https://github.com/FaridSafi/react-native-gifted-chat/blob/master/LICENSE" height="18">
     <img src='https://img.shields.io/badge/license-MIT-blue.svg' />
   </a>
@@ -70,22 +67,26 @@
 
 <p align="center">
   <br/>
-  <a href="https://www.docdok.health/?utm_source=github&utm_medium=react-native-gifted-chat&utm_campaign=sponsorship" target="_blank">
-    <img src="https://www.dropbox.com/s/g4dcq267aqbykpz/logo.png?dl=0&raw=1">
+  <a href="https://www.ethora.com" target="_blank">
+    <img src="https://www.dappros.com/wp-content/uploads/2023/06/Ethora-HLogo-V2.png" width="300px">
   </a>
   <br>
-  <p align="center">Delivering Personalized Healthcare</p>
   <p align="center">
-    <a href="https://www.docdok.health/?utm_source=github&utm_medium=react-native-gifted-chat&utm_campaign=sponsorship" target="_blank">      Find out more</a>
+    A complete app engine featuring GiftedChat
+  </p>
+  <p align="center">
+    <a href="https://bit.ly/ethorachat" target="_blank">Check out our GitHub</a>
   </p>
 </p>
 
-## The future of GiftedChat 🎉 
+## The future of GiftedChat 🎉
+
 Please give us your advice: [Related PR](https://github.com/FaridSafi/react-native-gifted-chat/pull/1775)
 
 ## Please vote
 
 **GiftedChat** depends on other packages and some needs a boost, please vote for PRs will improve it, thanks:
+
 - https://github.com/watadarkstar/react-native-typing-animation/issues/18
 
 ## Features
@@ -113,23 +114,23 @@ Please give us your advice: [Related PR](https://github.com/FaridSafi/react-nati
 - Use version `0.0.10` for RN `< 0.40.0`
 
 ## Testing
-`Test_ID` is exported as constants that can be used in your testing library of choice
+`TEST_ID` is exported as constants that can be used in your testing library of choice
 
-Gifted Chat uses `onLayout` to determine the height of the chat container.  To trigger `onLayout` during your tests, you can run the following bits of code.
+Gifted Chat uses `onLayout` to determine the height of the chat container. To trigger `onLayout` during your tests, you can run the following bits of code.
 
 ```typescript
-const WIDTH = 200 // or any number
-const HEIGHT = 2000 // or any number
+const WIDTH = 200; // or any number
+const HEIGHT = 2000; // or any number
 
-const loadingWrapper = getByTestId(Test_ID.LOADING.WRAPPER)
-fireEvent(loadingWrapper, "layout", {
+const loadingWrapper = getByTestId(TEST_ID.LOADING_WRAPPER)
+fireEvent(loadingWrapper, 'layout', {
   nativeEvent: {
     layout: {
       width: WIDTH,
       height: HEIGHT,
     },
   },
-});
+})
 ```
 
 ## Installation
@@ -156,7 +157,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 
 export function Example() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     setMessages([
@@ -174,7 +175,9 @@ export function Example() {
   }, [])
 
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages),
+    )
   }, [])
 
   return (
@@ -195,7 +198,7 @@ See [`App.tsx`](https://github.com/FaridSafi/react-native-gifted-chat/blob/maste
 
 ## "Slack" example
 
-See the files in [`example-slack-message`](example-slack-message) for an example of how to override the default UI to make something that looks more like Slack -- with usernames displayed and all messages on the left.
+See the files in [`example/example-slack-message`](example/example-slack-message) for an example of how to override the default UI to make something that looks more like Slack -- with usernames displayed and all messages on the left.
 
 ## Message object
 
@@ -329,6 +332,8 @@ interface QuickReplies {
 
 ## Props
 
+- **`messageContainerRef`** _(FlatList ref)_ - Ref to the flatlist
+- **`textInputRef`** _(TextInput ref)_ - Ref to the text input
 - **`messages`** _(Array)_ - Messages to display
 - **`isTyping`** _(Bool)_ - Typing Indicator state; default `false`. If you use`renderFooter` it will override this.
 - **`text`** _(String)_ - Input text; default is `undefined`, but if specified, it will override GiftedChat's internal state (e.g. for redux; [see notes below](#notes-for-redux))
@@ -359,6 +364,7 @@ interface QuickReplies {
 - **`onLongPress`** _(Function(`context`, `message`))_ - Callback when a message bubble is long-pressed; default is to show an ActionSheet with "Copy Text" (see [example using `showActionSheetWithOptions()`](https://github.com/FaridSafi/react-native-gifted-chat/blob/master@%7B2017-09-25%7D/src/Bubble.js#L96-L119))
 - **`inverted`** _(Bool)_ - Reverses display order of `messages`; default is `true`
 - **`renderUsernameOnMessage`** _(Bool)_ - Indicate whether to show the user's username inside the message bubble; default is `false`
+- **`renderUsername`** _(Function)_ - Custom Username container
 - **`renderMessage`** _(Function)_ - Custom message container
 - **`renderMessageText`** _(Function)_ - Custom message text
 - **`renderMessageImage`** _(Function)_ - Custom message image
@@ -414,10 +420,6 @@ interface QuickReplies {
 * **`renderQuickReplySend`** _(Function)_ - Custom quick reply **send** view
 * **`shouldUpdateMessage`** _(Function)_ - Lets the message component know when to update outside of normal cases.
 * **`infiniteScroll`** _(Bool)_ - infinite scroll up when reach the top of messages container, automatically call onLoadEarlier function if exist (not yet supported for the web). You need to add `loadEarlier` prop too.
-
-## Imperative methods
-
-- `focusTextInput()` - Open the keyboard and focus the text input box
 
 ## Notes for [Redux](https://github.com/reactjs/redux)
 
